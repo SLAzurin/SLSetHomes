@@ -1,14 +1,10 @@
 package io.github.slazurin.slsethomes.commands;
 
-import io.github.slazurin.slsethomes.HomeLinkedList.HomeNode;
-import io.github.slazurin.slsethomes.HomeLinkedList.HomesList;
+import io.github.slazurin.slsethomes.beans.Home;
 import io.github.slazurin.slsethomes.SLSetHomes;
 import io.github.slazurin.slsethomes.utils.ChatUtils;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -67,7 +63,7 @@ public class Homes implements TabExecutor {
     }
 
     private void listHomes(Player p, int page) {
-        List<Map.Entry<String,String>> homes = this.plugin.getApi().getSortedHomesList(p.getUniqueId().toString());
+        List<Home> homes = this.plugin.getApi().getHomes(p.getUniqueId().toString());
         
         int pageCount = homes.size() / 10;
         if (homes.size() % 10 != 0) {
@@ -91,7 +87,15 @@ public class Homes implements TabExecutor {
         int offset = page * 10 - 10;
         int i = 0;
         while (i < displayNum) {
-            p.sendMessage(ChatColor.YELLOW + homes.get(offset+i).getKey() + ": " + homes.get(offset+i).getValue());
+            Home h = homes.get(offset+i);
+            String w = "World";
+            if (h.getWorld().contains("_the_end")) {
+                w = "End";
+            }
+            if (h.getWorld().contains("_nether")) {
+                w = "Nether";
+            }
+            p.sendMessage(ChatColor.YELLOW + h.getName() + ": " + h.getDesc() + " (" + w + ")");
             i++;
         }
     }

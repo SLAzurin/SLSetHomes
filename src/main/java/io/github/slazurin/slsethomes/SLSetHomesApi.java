@@ -1,13 +1,9 @@
 package io.github.slazurin.slsethomes;
 
-import io.github.slazurin.slsethomes.HomeLinkedList.HomeNode;
-import io.github.slazurin.slsethomes.HomeLinkedList.HomesList;
-import io.github.slazurin.slsethomes.utils.ChatUtils;
+import io.github.slazurin.slsethomes.beans.Home;
 import io.github.slazurin.slsethomes.ymlstore.HomesStore;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 public class SLSetHomesApi {
     private final SLSetHomes plugin;
@@ -73,44 +68,25 @@ public class SLSetHomesApi {
         return home;
     }
     
-    public Map<String,String> getHomes(String uuid) {
+    public List<Home> getHomes(String uuid) {
         FileConfiguration cache = this.homesStore.getCache();
-        Map<String,String> homes = new HashMap<>();
+        List<Home> homes = new ArrayList<>();
         String playerHomeAccessor = this.homeAccessor + uuid;
         if (!cache.isSet(playerHomeAccessor)) {
             return homes;
         }
         
         for (String homeName : cache.getConfigurationSection(playerHomeAccessor).getKeys(false)) {
-            homes.put(homeName, cache.getString(playerHomeAccessor + "." + homeName + "." + "desc", ""));
+            Home h = new Home();
+            h.setName(homeName);
+            h.setDesc(cache.getString(playerHomeAccessor + "." + homeName + "." + "desc", ""));
+            h.setWorld(cache.getString(playerHomeAccessor + "." + homeName + "." + "world", Bukkit.getPlayer(UUID.fromString(uuid)).getWorld().getName()));
+            homes.add(h);
         }
-        
-        return homes;
-    }
-    
-    public List<Map.Entry<String,String>> getSortedHomesList(String uuid) {
-        List<Map.Entry<String,String>> list = new ArrayList<>();
-        Map<String,String> homes = getHomes(uuid);
-        for (Map.Entry<String,String> entry : homes.entrySet()) {
-//            count++;
-//            HomeNode current = new HomeNode(homeName, cache.getString(playerHomeAccessor + "." + homeName + "." + "desc", ""));
-//            HomeNode cursor = headHome;
-//            while (cursor != null) {
-//                if (current.homeName.compareToIgnoreCase(cursor.homeName) < 0) {
-//                    break;
-//                }
-//                cursor = cursor.next;
-//            }
-//            HomeNode temp = cursor;
-//            cursor = current;
-//            cursor.next = temp;
-            list.add(entry);
-        }
-        Collections.sort(list, (Map.Entry<String, String> e1, Map.Entry<String, String> e2) -> {
-            return e1.getKey().compareToIgnoreCase(e2.getKey());
+        Collections.sort(homes, (Home h1, Home h2) -> {
+            return h1.getName().compareToIgnoreCase(h2.getName());
         });
-        return list;
-//        return new HomesList(headHome,count);
+        return homes;
     }
     
     public boolean hasHomes(String uuid) {

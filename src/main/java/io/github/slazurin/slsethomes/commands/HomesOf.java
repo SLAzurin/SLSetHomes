@@ -1,10 +1,10 @@
 package io.github.slazurin.slsethomes.commands;
 
+import io.github.slazurin.slsethomes.beans.Home;
 import io.github.slazurin.slsethomes.SLSetHomes;
 import io.github.slazurin.slsethomes.utils.ChatUtils;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -78,7 +78,7 @@ public class HomesOf implements TabExecutor {
     }
     
     private void listHomesOf(Player p, OfflinePlayer ofPlayer, int page) {
-        List<Map.Entry<String,String>> homes = this.plugin.getApi().getSortedHomesList(ofPlayer.getUniqueId().toString());
+        List<Home> homes = this.plugin.getApi().getHomes(ofPlayer.getUniqueId().toString());
         
         int pageCount = homes.size() / 10;
         if (homes.size() % 10 != 0) {
@@ -102,7 +102,15 @@ public class HomesOf implements TabExecutor {
         int offset = page * 10 - 10;
         int i = 0;
         while (i < displayNum) {
-            p.sendMessage(ChatColor.YELLOW + homes.get(offset+i).getKey() + ": " + homes.get(offset+i).getValue());
+            Home h = homes.get(offset+i);
+            String w = "World";
+            if (h.getWorld().endsWith("_the_end")) {
+                w = "End";
+            }
+            if (h.getWorld().endsWith("_nether")) {
+                w = "Nether";
+            }
+            p.sendMessage(ChatColor.YELLOW + h.getName() + ": " + h.getDesc() + " (" + w + ")");
             i++;
         }
     }

@@ -4,8 +4,8 @@ import io.github.slazurin.slsethomes.SLSetHomes;
 import io.github.slazurin.slsethomes.utils.ChatUtils;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import org.bukkit.*;
+import org.bukkit.Instrument;
+import org.bukkit.Note;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -66,10 +66,10 @@ public class Home implements TabExecutor {
     public List<String> onTabComplete(CommandSender cs, Command cmnd, String string, String[] args) {
         List<String> l = new ArrayList<>();
         if (args.length == 1) {
-            Map<String,String> homes = this.plugin.getApi().getHomes(((Player)cs).getUniqueId().toString());
-            for (String name : homes.keySet()) {
-                if (name.toUpperCase().startsWith(args[0].toUpperCase())) {
-                    l.add(name);
+            List<io.github.slazurin.slsethomes.beans.Home> homes = this.plugin.getApi().getHomes(((Player)cs).getUniqueId().toString());
+            for (io.github.slazurin.slsethomes.beans.Home home : homes) {
+                if (home.getName().toUpperCase().startsWith(args[0].toUpperCase())) {
+                    l.add(home.getName());
                 }
             }
         }

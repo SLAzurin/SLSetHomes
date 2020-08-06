@@ -1,10 +1,10 @@
 package io.github.slazurin.slsethomes.commands;
 
+import io.github.slazurin.slsethomes.beans.Home;
 import io.github.slazurin.slsethomes.SLSetHomes;
 import io.github.slazurin.slsethomes.utils.ChatUtils;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -84,10 +84,10 @@ public class HomeOf implements TabExecutor {
                 l.add("Player not found");
                 return l;
             }
-            Map<String,String> homes = this.plugin.getApi().getHomes(p.getUniqueId().toString());
-            for (String home : homes.keySet()) {
-                if (home.toUpperCase().startsWith(args[1].toUpperCase())) {
-                    l.add(home);
+            List<Home> homes = this.plugin.getApi().getHomes(p.getUniqueId().toString());
+            for (Home home : homes) {
+                if (home.getName().toUpperCase().startsWith(args[1].toUpperCase())) {
+                    l.add(home.getName());
                 }
             }
         }
