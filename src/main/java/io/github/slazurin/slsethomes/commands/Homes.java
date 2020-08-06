@@ -75,10 +75,10 @@ public class Homes implements TabExecutor {
             return;
         }
         
-        p.sendMessage(ChatColor.YELLOW + "Your homes: (Page " + page + "/" + pageCount + ", total: " + homes.size() +")");
-        if (this.plugin.getApi().hasDefaultHome(p.getUniqueId().toString()) && page == 1) {
-            p.sendMessage(ChatColor.YELLOW + "(default): Your default home");
-        }
+        p.sendMessage(ChatColor.GOLD + "Your homes: (Page " + page + "/" + pageCount + ", total: " + homes.size() +")");
+//        if (this.plugin.getApi().hasDefaultHome(p.getUniqueId().toString()) && page == 1) {
+//            p.sendMessage(ChatColor.LIGHT_PURPLE + "(default) " + ChatColor.DARK_PURPLE + "Your default home");
+//        }
         int displayNum = 10;
         if (page == pageCount && homes.size() % 10 != 0) {
             displayNum = homes.size() % 10;
@@ -95,7 +95,7 @@ public class Homes implements TabExecutor {
             if (h.getWorld().contains("_nether")) {
                 w = "Nether";
             }
-            p.sendMessage(ChatColor.YELLOW + h.getName() + ": " + h.getDesc() + " (" + w + ")");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + h.getName() + " " + ChatColor.DARK_PURPLE + h.getDesc() + ChatColor.GRAY + " (" + w + ")");
             i++;
         }
     }
