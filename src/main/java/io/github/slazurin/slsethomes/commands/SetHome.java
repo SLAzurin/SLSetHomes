@@ -65,7 +65,7 @@ public class SetHome implements TabExecutor {
         if (hasDesc) {
             String strbuilder = "";
             for (int i = 1; i < args.length; i++) {
-                strbuilder += args[i];
+                strbuilder += args[i] + " ";
             }
             strbuilder = strbuilder.trim();
             this.plugin.getApi().setHome(uuid, args[0], strbuilder, p.getLocation());
