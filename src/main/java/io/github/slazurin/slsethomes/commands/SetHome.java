@@ -32,22 +32,15 @@ public class SetHome implements TabExecutor {
             ChatUtils.sendNoPerm(sender);
             return true;
         }
-
-        switch (args.length) {
-            case 0:
-                this.setDefaultHome(p);
-                break;
-            case 1:
-            case 2:
-                if (args[0].contains(".")) {
-                    ChatUtils.sendMessageRed(p, "Cannot have period in name.");
-                    break;
-                }
-                this.setHome(p, args);
-                break;
-            default:
-                ChatUtils.sendMessageRed(p, "Expected 0 to 2 arguments.");
-                break;
+        
+        if (args.length == 0) {
+            this.setDefaultHome(p);
+        } else {
+            if (args[0].contains(".")) {
+                ChatUtils.sendMessageRed(p, "Cannot have period in name.");
+                return true;
+            }
+            this.setHome(p, args);
         }
         return true;
     }
@@ -68,10 +61,15 @@ public class SetHome implements TabExecutor {
             ChatUtils.sendMessageRed(p, args[0] + " is already set.");
             return;
         }
-        boolean hasDesc = args.length == 2;
+        boolean hasDesc = args.length > 1;
         if (hasDesc) {
-            this.plugin.getApi().setHome(uuid, args[0], args[1], p.getLocation());
-            ChatUtils.sendMessageAqua(p, args[0] + " home is now set with description: " + args[1]);
+            String strbuilder = "";
+            for (int i = 1; i < args.length; i++) {
+                strbuilder += args[i];
+            }
+            strbuilder = strbuilder.trim();
+            this.plugin.getApi().setHome(uuid, args[0], strbuilder, p.getLocation());
+            ChatUtils.sendMessageAqua(p, args[0] + " home is now set with description: \"" + strbuilder + "\"");
         } else {
             this.plugin.getApi().setHome(uuid, args[0], null, p.getLocation());
             ChatUtils.sendMessageAqua(p, args[0] + " home is now set");
