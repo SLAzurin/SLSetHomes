@@ -1,0 +1,56 @@
+name: SLSetHomes
+main: io.github.slazurin.slsethomes.SLSetHomes
+version: 0.0.1
+author: Azurin
+api-version: 1.16
+
+commands:
+  home:
+    description: Go to your home
+    usage: /home <homename>
+  home-of:
+    description: Go to another player's home
+    usage: /home-of <playername> <homename>
+  homes:
+    description: Show your homes
+    usage: /homes
+  homes-of:
+    description: Show another player's homes
+    usage: /homes-of <playername>
+  sethome:
+    description: Set your location as a new home
+    usage: /sethome <homename> <optional.description>
+  delhome:
+    description: Delete your home
+    usage: /delhome <homename>
+    
+permissions:
+  slsethomes.*:
+    description: All permissions for SLSetHomes plugin
+    default: op
+    children:
+      slsethomes.home: true
+      slsethomes.home-of: true
+      slsethomes.homes: true
+      slsethomes.homes-of: true
+      slsethomes.sethome: true
+      slsethomes.delhome: true
+  slsethomes.home:
+    description: Allow player to use /home
+    default: true
+  slsethomes.home-of:
+    description: Allow player to use /home-of
+    default: op
+  slsethomes.homes:
+    description: Allow player to use /homs
+    default: true
+  slsethomes.homes-of:
+    description: Allow player to use /homes-of
+    default: op
+  slsethomes.sethome:
+    description: Allow player to use /sethome
+    default: true
+  slsethomes.delhome:
+    description: Allow player to use /delhome
+    default: true
+      
