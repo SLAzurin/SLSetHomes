@@ -35,8 +35,8 @@ public class HomesOf implements TabExecutor {
             return true;
         }
         
-        if (args.length > 2) {
-            ChatUtils.sendMessageRed(sender, "Expected 1 arguments");
+        if (args.length == 0 || args.length > 2) {
+            ChatUtils.sendMessageRed(sender, "Expected 1 or 2 arguments");
             return true;
         }
         
@@ -90,9 +90,9 @@ public class HomesOf implements TabExecutor {
             return;
         }
         
-        p.sendMessage(ChatColor.YELLOW + ofPlayer.getName() + "'s homes: (Page " + page + "/" + pageCount + ", total: " + homes.size() +")");
+        p.sendMessage(ChatColor.GOLD + ofPlayer.getName() + "'s homes: (Page " + page + "/" + pageCount + ", total: " + homes.size() +")");
         if (this.plugin.getApi().hasDefaultHome(ofPlayer.getUniqueId().toString()) && page == 1) {
-            p.sendMessage(ChatColor.YELLOW + "(default): " + ofPlayer.getName() + "'s default home");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + "(default) " + ChatColor.YELLOW + ofPlayer.getName() + "'s default home");
         }
         int displayNum = 10;
         if (page == pageCount && homes.size() % 10 != 0) {
@@ -110,7 +110,7 @@ public class HomesOf implements TabExecutor {
             if (h.getWorld().endsWith("_nether")) {
                 w = "Nether";
             }
-            p.sendMessage(ChatColor.YELLOW + h.getName() + ": " + h.getDesc() + " (" + w + ")");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + h.getName() + " " + ChatColor.YELLOW + h.getDesc() + ChatColor.GRAY + " (" + w + ")");
             i++;
         }
     }
