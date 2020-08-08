@@ -95,7 +95,7 @@ public class Homes implements TabExecutor {
             if (h.getWorld().contains("_nether")) {
                 w = "Nether";
             }
-            p.sendMessage(ChatColor.LIGHT_PURPLE + h.getName() + " " + ChatColor.DARK_PURPLE + h.getDesc() + ChatColor.GRAY + " (" + w + ")");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + h.getName() + " " + ChatColor.YELLOW + h.getDesc() + ChatColor.GRAY + " (" + w + ")");
             i++;
         }
     }
