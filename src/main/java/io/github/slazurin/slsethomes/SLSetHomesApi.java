@@ -80,7 +80,7 @@ public class SLSetHomesApi {
             Home h = new Home();
             h.setName(homeName);
             h.setDesc(cache.getString(playerHomeAccessor + "." + homeName + "." + "desc", ""));
-            h.setWorld(cache.getString(playerHomeAccessor + "." + homeName + "." + "world", Bukkit.getPlayer(UUID.fromString(uuid)).getWorld().getName()));
+            h.setWorld(cache.getString(playerHomeAccessor + "." + homeName + "." + "world", ""));
             homes.add(h);
         }
         Collections.sort(homes, (Home h1, Home h2) -> {
