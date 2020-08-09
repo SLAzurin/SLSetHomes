@@ -80,8 +80,11 @@ public class HomesOf implements TabExecutor {
     private void listHomesOf(Player p, OfflinePlayer ofPlayer, int page) {
         List<Home> homes = this.plugin.getApi().getHomes(ofPlayer.getUniqueId().toString());
         
-        int pageCount = homes.size() / 10;
-        if (homes.size() % 10 != 0) {
+        
+        int homesPerPage = 15;
+        
+        int pageCount = homes.size() / homesPerPage;
+        if (homes.size() % homesPerPage != 0) {
             pageCount += 1;
         }
         
@@ -94,12 +97,12 @@ public class HomesOf implements TabExecutor {
         if (this.plugin.getApi().hasDefaultHome(ofPlayer.getUniqueId().toString()) && page == 1) {
             p.sendMessage(ChatColor.LIGHT_PURPLE + "(default) " + ChatColor.YELLOW + ofPlayer.getName() + "'s default home");
         }
-        int displayNum = 10;
-        if (page == pageCount && homes.size() % 10 != 0) {
-            displayNum = homes.size() % 10;
+        int displayNum = homesPerPage;
+        if (page == pageCount && homes.size() % homesPerPage != 0) {
+            displayNum = homes.size() % homesPerPage;
         }
         
-        int offset = page * 10 - 10;
+        int offset = page * homesPerPage - homesPerPage;
         int i = 0;
         while (i < displayNum) {
             Home h = homes.get(offset+i);
