@@ -8,21 +8,27 @@ commands:
   home:
     description: Go to your home
     usage: /home <homename>
+    permission: slsethomes.home
   home-of:
     description: Go to another player's home
     usage: /home-of <playername> <homename>
+    permission: slsethomes.home-of
   homes:
     description: Show your homes
     usage: /homes
+    permission: slsethomes.homes
   homes-of:
     description: Show another player's homes
     usage: /homes-of <playername>
+    permission: slsethomes.homes-of
   sethome:
     description: Set your location as a new home
     usage: /sethome <homename> <optional.description>
+    permission: slsethomes.sethome
   delhome:
     description: Delete your home
     usage: /delhome <homename>
+    permission: slsethomes.delhome
     
 permissions:
   slsethomes.*:
