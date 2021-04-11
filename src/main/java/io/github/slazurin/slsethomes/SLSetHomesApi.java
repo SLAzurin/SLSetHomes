@@ -150,10 +150,18 @@ public class SLSetHomesApi {
         List<String> l = new ArrayList<>();
         FileConfiguration cache = this.homesStore.getCache();
         for (String uuid : cache.getConfigurationSection(this.homeAccessor).getKeys(false)) {
-            l.add(Bukkit.getOfflinePlayer(UUID.fromString(uuid)).getName());
+            String name = this.plugin.getUUIDMapperPlugin().getApi().getName(uuid);
+            if (name != null) {
+                l.add(name);
+            } else {
+                l.add(Bukkit.getOfflinePlayer(UUID.fromString(uuid)).getName());
+            }
         }
         for (String uuid : cache.getConfigurationSection(this.defaultHomeAccessor).getKeys(false)) {
-            String n = Bukkit.getOfflinePlayer(UUID.fromString(uuid)).getName();
+            String n = this.plugin.getUUIDMapperPlugin().getApi().getName(uuid);
+            if (n == null) {
+                n = Bukkit.getOfflinePlayer(UUID.fromString(uuid)).getName();
+            }
             if (!l.contains(n)) {
                 l.add(n);
             }

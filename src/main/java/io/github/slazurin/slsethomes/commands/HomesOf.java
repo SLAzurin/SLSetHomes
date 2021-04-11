@@ -43,6 +43,10 @@ public class HomesOf implements TabExecutor {
         }
         
         UUID pUUID = this.plugin.getUUIDMapperPlugin().getApi().getUUID(args[0]);
+        if (pUUID == null) {
+            ChatUtils.sendMessageRed(sender, "Player not found");
+            return true;
+        }
         OfflinePlayer p = Bukkit.getOfflinePlayer(pUUID);
         if (!p.hasPlayedBefore()) {
             ChatUtils.sendMessageRed(sender, "Player not found");
