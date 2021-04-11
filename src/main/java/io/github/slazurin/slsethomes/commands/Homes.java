@@ -55,7 +55,7 @@ public class Homes implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender cs, Command cmnd, String string, String[] strings) {
-        List l = new ArrayList<>();
+        List<String> l = new ArrayList<String>();
         if (strings.length == 1) {
             l.add(ChatColor.ITALIC + "<page>");
         }
