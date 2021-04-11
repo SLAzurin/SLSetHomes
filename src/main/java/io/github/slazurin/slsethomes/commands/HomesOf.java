@@ -5,6 +5,8 @@ import io.github.slazurin.slsethomes.SLSetHomes;
 import io.github.slazurin.slsethomes.utils.ChatUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -40,7 +42,8 @@ public class HomesOf implements TabExecutor {
             return true;
         }
         
-        OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
+        UUID pUUID = this.plugin.getUUIDMapperPlugin().getApi().getUUID(args[0]);
+        OfflinePlayer p = Bukkit.getOfflinePlayer(pUUID);
         if (!p.hasPlayedBefore()) {
             ChatUtils.sendMessageRed(sender, "Player not found");
             return true;

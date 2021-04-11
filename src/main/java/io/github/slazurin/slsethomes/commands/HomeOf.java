@@ -37,8 +37,8 @@ public class HomeOf implements TabExecutor {
             ChatUtils.sendMessageRed(sender, "Expected 1 or 2 arguments.");
             return true;
         }
-        
-        OfflinePlayer p2 = Bukkit.getOfflinePlayer(args[0]);
+        UUID p2UUID = this.plugin.getUUIDMapperPlugin().getApi().getUUID(args[0]);
+        OfflinePlayer p2 = Bukkit.getOfflinePlayer(p2UUID);
         if (!p2.hasPlayedBefore()) {
             ChatUtils.sendMessageRed(sender, "Player not found.");
             return true;
@@ -79,7 +79,8 @@ public class HomeOf implements TabExecutor {
             }
         }
         if (args.length == 2) {
-            OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
+            UUID pUUID = this.plugin.getUUIDMapperPlugin().getApi().getUUID(args[0]);
+            OfflinePlayer p = Bukkit.getOfflinePlayer(pUUID);
             if (!p.hasPlayedBefore()) {
                 l.add("Player not found");
                 return l;

@@ -1,6 +1,7 @@
 package io.github.slazurin.slsethomes;
 
 import io.github.slazurin.slsethomes.commands.SetHome;
+import io.github.slazurin.SLUUIDToNamesMapper.SLUUIDToNamesMapperPlugin;
 import io.github.slazurin.slsethomes.commands.DelHome;
 import io.github.slazurin.slsethomes.commands.Home;
 import io.github.slazurin.slsethomes.commands.HomeOf;
@@ -10,11 +11,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SLSetHomes extends JavaPlugin {
     private SLSetHomesApi api;
-
+    private SLUUIDToNamesMapperPlugin uuidMapperPlugin;
 
     @Override
     public void onEnable() {
         this.api = new SLSetHomesApi(this);
+        this.uuidMapperPlugin = (SLUUIDToNamesMapperPlugin) this.getServer().getPluginManager().getPlugin("SLUUIDToNamesMapperAPI");
         registerCommands();
     }
 
@@ -31,4 +33,7 @@ public class SLSetHomes extends JavaPlugin {
         return api;
     }
     
+    public SLUUIDToNamesMapperPlugin getUUIDMapperPlugin() {
+        return this.uuidMapperPlugin;
+    }
 }
